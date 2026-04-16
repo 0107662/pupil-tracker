@@ -981,6 +981,7 @@ body.printing-mgmt .mgmt-filter-bar{display:none!important}
 <script>
 
 
+
 // ── PASSWORD GATE (self-contained) ──────────────────────────────────────
 (function(){
   var PW='633d67e0';
@@ -1004,9 +1005,14 @@ body.printing-mgmt .mgmt-filter-bar{display:none!important}
     hs.style.display='flex';
     function dismiss(){window.__pw_ok__=true;hs.style.animation='homeFadeOut .5s cubic-bezier(.4,0,1,1) forwards';setTimeout(function(){hs.style.display='none';},480);}
     window.__doGateCheck=function(){
-      var inp=document.getElementById('homePasswordInput');var err=document.getElementById('homePasswordError');
-      var val=inp?inp.value:'';if(!val){if(err)err.textContent='Please enter a password';return;}
-      if(fnv(val)===PW){if(err)err.textContent='';dismiss();}
+      var inp=document.getElementById('homePasswordInput');
+      var err=document.getElementById('homePasswordError');
+      var val=inp?inp.value:'';
+      if(!val){if(err)err.textContent='Please enter a password';return;}
+      var localHash=null;
+      try{var cfg=JSON.parse(localStorage.getItem('sahs_admin_cfg')||'{}');localHash=cfg.sitePasswordBaked||null;}catch(e){}
+      var match=(fnv(val)===PW)||(localHash&&fnv(val)===localHash);
+      if(match){if(err)err.textContent='';dismiss();}
       else{if(err)err.textContent='Incorrect password — please try again';if(inp){inp.value='';inp.focus();}}
     };
     var inp=document.getElementById('homePasswordInput');
