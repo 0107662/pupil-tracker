@@ -981,38 +981,33 @@ body.printing-mgmt .mgmt-filter-bar{display:none!important}
 <script>
 // ── PASSWORD GATE ───────────────────────────────────────────────────────
 (function(){
-  var PW = '633d67e0';
+  var PW='633d67e0';
   function fnv(s){var h=0x811c9dc5,p='sahs_v1:'+s;for(var i=0;i<p.length;i++){h=(h^p.charCodeAt(i))>>>0;h=Math.imul(h,0x01000193)>>>0;}return h.toString(16).padStart(8,'0');}
-  window.__BAKED_SITE_PW__ = PW;
-  window.__pw_ok__ = false;
-  document.addEventListener('DOMContentLoaded', function(){
-    var hs = document.getElementById('homeScreen');
-    var gate = document.getElementById('homePasswordGate');
-    var enterBtn = document.getElementById('homeEnterBtn');
-    var hint = document.getElementById('homeHint');
-    if(!hs) return;
-    if(gate) gate.style.display = 'block';
-    if(enterBtn) enterBtn.style.display = 'none';
-    if(hint) hint.style.display = 'none';
+  window.__BAKED_SITE_PW__=PW;window.__pw_ok__=false;
+  document.addEventListener('DOMContentLoaded',function(){
+    var hs=document.getElementById('homeScreen');
+    if(!hs)return;
+    var gate=document.getElementById('homePasswordGate');
+    var enterBtn=document.getElementById('homeEnterBtn');
+    var hint=document.getElementById('homeHint');
+    if(gate)gate.style.display='block';
+    if(enterBtn)enterBtn.style.display='none';
+    if(hint)hint.style.display='none';
     function doCheck(){
-      var inp = document.getElementById('homePasswordInput');
-      var err = document.getElementById('homePasswordError');
-      var val = inp ? inp.value : '';
-      if(!val){ if(err) err.textContent='Please enter a password'; return; }
-      if(fnv(val) === PW){
-        window.__pw_ok__ = true;
-        if(err) err.textContent = '';
-        if(hs){ hs.style.animation='homeFadeOut .5s cubic-bezier(.4,0,1,1) forwards'; setTimeout(function(){ hs.style.display='none'; }, 480); }
-      } else {
-        if(err) err.textContent = 'Incorrect password — please try again';
-        if(inp){ inp.value=''; inp.focus(); }
-      }
+      var inp=document.getElementById('homePasswordInput');
+      var err=document.getElementById('homePasswordError');
+      var val=inp?inp.value:'';
+      if(!val){if(err)err.textContent='Please enter a password';return;}
+      if(fnv(val)===PW){
+        window.__pw_ok__=true;if(err)err.textContent='';
+        if(hs){hs.style.animation='homeFadeOut .5s cubic-bezier(.4,0,1,1) forwards';setTimeout(function(){hs.style.display='none';},480);}
+      }else{if(err)err.textContent='Incorrect password — please try again';if(inp){inp.value='';inp.focus();}}
     }
-    var btn = document.querySelector('#homePasswordGate button');
-    var inp = document.getElementById('homePasswordInput');
-    if(btn) btn.onclick = doCheck;
-    if(inp) inp.onkeydown = function(e){ if(e.key==='Enter') doCheck(); };
-    setTimeout(function(){ var i=document.getElementById('homePasswordInput'); if(i) i.focus(); }, 500);
+    var btn=document.querySelector('#homePasswordGate button');
+    var inp2=document.getElementById('homePasswordInput');
+    if(btn)btn.onclick=doCheck;
+    if(inp2)inp2.onkeydown=function(e){if(e.key==='Enter')doCheck();};
+    setTimeout(function(){var i=document.getElementById('homePasswordInput');if(i)i.focus();},500);
   });
 })();
 // ─────────────────────────────────────────────────────────────────────────
