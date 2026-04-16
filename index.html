@@ -979,6 +979,7 @@ body.printing-mgmt .mgmt-filter-bar{display:none!important}
 <div class="toast" id="toast"></div>
 
 <script>
+
 // ── PASSWORD GATE (self-contained) ──────────────────────────────────────
 (function(){
   var PW='633d67e0';
@@ -1012,7 +1013,7 @@ body.printing-mgmt .mgmt-filter-bar{display:none!important}
     if(inp){inp.onkeydown=function(e){if(e.key==='Enter')window.__doGateCheck();};setTimeout(function(){inp.focus();},300);}
     var eb=document.getElementById('homeEnterBtn');if(eb)eb.onclick=function(){window.__doGateCheck();};
   }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',buildGate);}else{buildGate();}
+  buildGate();
 })();
 // ── END PASSWORD GATE ────────────────────────────────────────────────────
 
